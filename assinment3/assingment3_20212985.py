@@ -70,8 +70,8 @@ def doScoreDB(scdb):
             except IndexError:
                 print('예외 발생 : 이름과 더하고 싶은 숫자를 입력해주세요')
             except ValueError:
-                print('예외 발생 : 입력하신 값들을 다시 수정해주세요')
-
+                print('예외 발생 : 입력하신 것들을 다시 확인해주세요')
+                
         elif parse[0] == 'show':
             sortKey ='Name' if len(parse) == 1 else parse[1]
             showScoreDB(scdb, sortKey)
