@@ -11,7 +11,7 @@ def readScoreDB():
 
     scdb = []
     try:
-        scdb =  pickle.load(fH)
+        scdb = pickle.load(fH)
     except:
         print("Empty DB: ", dbfilename)
     else:
@@ -33,16 +33,44 @@ def doScoreDB(scdb):
         if inputstr == "": continue
         parse = inputstr.split(" ")
         if parse[0] == 'add':
-            record = {'Name':parse[1], 'Age':parse[2], 'Score':parse[3]}
-            scdb += [record]
+            try:
+                record = {'Name': parse[1], 'Age': parse[2], 'Score': parse[3]}
+                scdb += [record]
+            except IndexError:
+                print("이름, 나이, 점수를 다시 한 번 확인하고 입력해주세요.")
+            except ValueError:
+                print("입력한 것이 이름, 나이, 점수가 맞는지 다시 한 번 확인해주세요.")
+
         elif parse[0] == 'del':
-            for p in scdb:
-                if p['Name'] == parse[1]:
-                    scdb.remove(p)    
-                    break
+            try:
+                for p in scdb:
+                    if p['Name'] == parse[1]:
+                        scdb.remove(p)
+            except IndexError:
+                print("삭제할 학생의 이름을 다시 한 번 확인하고 입력해주세요.")
+
         elif parse[0] == 'show':
             sortKey ='Name' if len(parse) == 1 else parse[1]
             showScoreDB(scdb, sortKey)
+
+        elif parse[0] == 'find':
+            try:
+                for p in scdb:
+                    if p['Name'] == parse[1]:
+                        print("Age=" + str(p['Age']), "Name=" + p['Name'], "Score=" + str(p['Score']))
+            except IndexError:
+                print("이름인지 확인하고 다시 한 번 입력해주세요.")
+
+        elif parse[0] == 'inc':
+            try:
+                for p in scdb:
+                    if p['Name'] == parse[1]:
+                        p['Score'] = str(int(p['Score']) + int(parse[2]))
+            except IndexError:
+                print("해당하는 점수의 이름과 더하고 싶은 숫자를 다시 한 번 확인해주세요.")
+            except ValueError:
+                print("입력하신 것을 다시 한 번 확인하고 입력해주세요.")
+
         elif parse[0] == 'quit':
             break
         else:
