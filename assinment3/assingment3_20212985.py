@@ -33,10 +33,14 @@ def doScoreDB(scdb):
         if inputstr == "": continue
         parse = inputstr.split(" ")
         if parse[0] == 'add':
-            try :
-                record = {'Name':parse[1], 'Age':parse[2], 'Score':parse[3]}
+            try:
+                record = {'Name':parse[1], 'Age':int(parse[2]), 'Score':int(parse[3])}
+            except IndexError:
+                print("예외 발생 : 이름, 나이, 점수를 입력해주세요")
+            except ValueError:
+                print("예외 발생 : 입력하신 것들을 다시 확인해주세요")
+            else:
                 scdb += [record]
-            except : print('예외 발생')
         elif parse[0] == 'del':
             try:
                 has_deleted = True
@@ -46,7 +50,7 @@ def doScoreDB(scdb):
                         if p['Name'] == parse[1]:
                             scdb.remove(p)
                             has_deleted = True
-            except:
+            except IndexError:
                 print('에러 발생 : 이름을 입력해주세요')
 
         elif parse[0] == 'find':
@@ -54,15 +58,19 @@ def doScoreDB(scdb):
                 for p in scdb:
                     if p['Name'] == parse[1]:
                         print("Age=" + str(p['Age']), "Name=" + str(p['Name']), "Score=" + str(p['Score']))
-            except:
+            except IndexError:
                 print('예외 발생 : 이름을 입력해주세요')
+            else : print('찾으시는 이름이 없습니다.')
         elif parse[0] == 'inc':
             try:
                 for p in scdb:
                     if p['Name'] == parse[1]:
                         p['Score'] = str(int(p['Score']) + int(parse[2]))
 
-            except : print('예외 발생 : 이름과 더하고 싶은 숫자를 입력해주세요')
+            except IndexError:
+                print('예외 발생 : 이름과 더하고 싶은 숫자를 입력해주세요')
+            except ValueError:
+                print('예외 발생 : 입력하신 값들을 다시 수정해주세요')
 
         elif parse[0] == 'show':
             sortKey ='Name' if len(parse) == 1 else parse[1]
