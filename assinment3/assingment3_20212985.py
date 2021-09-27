@@ -60,7 +60,7 @@ def doScoreDB(scdb):
                         print("Age=" + str(p['Age']), "Name=" + str(p['Name']), "Score=" + str(p['Score']))
             except IndexError:
                 print('예외 발생 : 이름을 입력해주세요')
-            else : print('찾으시는 이름이 없습니다.')
+            
         elif parse[0] == 'inc':
             try:
                 for p in scdb:
