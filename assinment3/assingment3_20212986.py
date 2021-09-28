@@ -38,8 +38,6 @@ def doScoreDB(scdb):
                 scdb += [record]
             except IndexError:
                 print("이름, 나이, 점수를 다시 한 번 확인하고 입력해주세요.")
-            except ValueError:
-                print("입력한 것이 이름, 나이, 점수가 맞는지 다시 한 번 확인해주세요.")
 
         elif parse[0] == 'del':
             try:
@@ -59,7 +57,7 @@ def doScoreDB(scdb):
                     if p['Name'] == parse[1]:
                         print("Age=" + str(p['Age']), "Name=" + p['Name'], "Score=" + str(p['Score']))
             except IndexError:
-                print("이름인지 확인하고 다시 한 번 입력해주세요.")
+                print("이름을 확인하고 다시 한 번 입력해주세요.")
 
         elif parse[0] == 'inc':
             try:
@@ -67,9 +65,7 @@ def doScoreDB(scdb):
                     if p['Name'] == parse[1]:
                         p['Score'] = str(int(p['Score']) + int(parse[2]))
             except IndexError:
-                print("해당하는 점수의 이름과 더하고 싶은 숫자를 다시 한 번 확인해주세요.")
-            except ValueError:
-                print("입력하신 것을 다시 한 번 확인하고 입력해주세요.")
+                print("해당하는 점수의 이름과 더하고 싶은 숫자를 다시 한 번 확인해주세요.")            
 
         elif parse[0] == 'quit':
             break
